@@ -9,7 +9,7 @@ SearchApp = ->
       "<a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>"
   )
 
-  SearchAreaView = Backbone.View.extend({
+  SearchAreaView = Backbone.View.extend(
     el: $('#search')
 
     initialize: ->
@@ -31,18 +31,18 @@ SearchApp = ->
         this.$(".previous").show()
 
       this
-  })
+  )
 
-  SearchCollection = Backbone.Collection.extend({
+  SearchCollection = Backbone.Collection.extend(
     initialize: (args) ->
       this
-  });
+  )
 
-  SearchController = Backbone.Controller.extend({
-    routes: {
+  SearchController = Backbone.Controller.extend(
+    routes:
       "": "welcome",
       "!/page/:pageNumber" : "page"
-    },
+
 
     initialize: (options) ->
       this.instance = new SearchModel({
@@ -63,7 +63,7 @@ SearchApp = ->
     page: (pageNumber) ->
       this.instance.set({page: pageNumber})
       this
-  })
+  )
 
   init: ->
     Controller = new SearchController()

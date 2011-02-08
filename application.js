@@ -3,9 +3,9 @@ var SearchModel = Backbone.Model.extend({
 });
 
 var SearchAreaTemplate = _.template(
-  "<a href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " +
+  "<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " +
     "<span class='page'>Page: <%= page %></span> " +
-    "<a href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>"
+    "<a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>"
 );
 
 var SearchAreaView = Backbone.View.extend({
@@ -21,9 +21,15 @@ var SearchAreaView = Backbone.View.extend({
   },
 
   render: function() {
+    var content = this.layout(this.model.toJSON());
+
     $(this.el)
       .empty()
-      .html(this.layout(this.model.toJSON()));
+      .html(content);
+
+    if (parseInt(this.model.get('page')) > 1) {
+      this.$(".previous").show();
+    }
 
     return this;
   }

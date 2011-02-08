@@ -2,7 +2,7 @@
   var SearchApp;
   SearchApp = function() {
     var SearchAreaTemplate, SearchAreaView, SearchCollection, SearchController, SearchModel;
-    SearchModel = Backbone.Model.extend();
+    SearchModel = Backbone.Model.extend;
     SearchAreaTemplate = _.template("<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " + "<span class='page'>Page: <%= page %></span> " + "<a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>");
     SearchAreaView = Backbone.View.extend({
       el: $('#search'),

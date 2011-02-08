@@ -3,7 +3,8 @@ var SearchModel = Backbone.Model.extend({
 });
 
 var SearchAreaTemplate = _.template(
-  "<span class='page'>Page: <%= page %></span> " +
+  "<a href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " +
+    "<span class='page'>Page: <%= page %></span> " +
     "<a href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>"
 );
 

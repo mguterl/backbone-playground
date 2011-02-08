@@ -12,7 +12,9 @@ var SearchAreaView = Backbone.View.extend({
   el: $('#search'),
 
   initialize: function() {
-    this.model.bind('refresh', this.render);
+    this.render = _.bind(this.render, this);
+    this.model.bind('change:page', this.render);
+
     this.layout = SearchAreaTemplate;
 
     return this;
@@ -60,7 +62,6 @@ var SearchController = Backbone.Controller.extend({
 
   page: function(pageNumber) {
     this.instance.set({page: pageNumber});
-    this.SearchArea.render();
 
     return this;
   }

@@ -1,9 +1,11 @@
 var SearchModel = Backbone.Model.extend({
-  id: 0,
-  page: 1
+
 });
 
-var SearchAreaTemplate = _.template("<span class='page'>Page: <%= page %></span>");
+var SearchAreaTemplate = _.template(
+  "<span class='page'>Page: <%= page %></span> " +
+    "<a href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>"
+);
 
 var SearchAreaView = Backbone.View.extend({
   el: $('#search'),
@@ -32,17 +34,18 @@ var SearchCollection = Backbone.Collection.extend({
 
 var SearchController = Backbone.Controller.extend({
   routes: {
-    "": "welcome"
+    "": "welcome",
+    "!/page/:pageNumber" : "page"
   },
 
   initialize: function(options) {
-    var instance = new SearchModel({
+    this.instance = new SearchModel({
       id: 1,
       page: 1
     });
 
     this.SearchArea = new SearchAreaView({
-      model: instance
+      model: this.instance
     });
 
     this.SearchArea.render();
@@ -51,6 +54,13 @@ var SearchController = Backbone.Controller.extend({
   },
 
   welcome: function() {
+    return this;
+  },
+
+  page: function(pageNumber) {
+    this.instance.set({page: pageNumber});
+    this.SearchArea.render();
+
     return this;
   }
 })

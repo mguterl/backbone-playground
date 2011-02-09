@@ -1,5 +1,5 @@
 SearchApp = ->
-  SearchModel = Backbone.Model.extend
+  SearchModel = Backbone.Model.extend()
 
   SearchAreaTemplate = _.template(
     "<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " +

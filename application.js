@@ -12,7 +12,7 @@
         return "/results?page=" + this.get('page');
       }
     });
-    SearchAreaTemplate = _.template($("#search-area-template").html());
+    SearchAreaTemplate = _.template($("#template-search-area").html());
     SearchAreaView = Backbone.View.extend({
       el: $('#search'),
       initialize: function() {

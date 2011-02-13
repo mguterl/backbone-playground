@@ -3,6 +3,7 @@ SearchApp = ->
     defaults:
       page: 1
       total: null
+      results: []
 
     url: ->
       "/results?page=" + this.get('page')

@@ -15,6 +15,11 @@
       <a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page </a>
       <span class='page'>Page: <%= page %> </span>
       <a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page </a>
+      <ul>
+        <% _(results).each(function(result) { %>
+          <li><%= result.name %></li>
+        <% }); %>
+      </ul>
     </script>
   </head>
 

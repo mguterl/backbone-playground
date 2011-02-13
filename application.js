@@ -5,7 +5,8 @@
     SearchModel = Backbone.Model.extend({
       defaults: {
         page: 1,
-        total: null
+        total: null,
+        results: []
       },
       url: function() {
         return "/results?page=" + this.get('page');

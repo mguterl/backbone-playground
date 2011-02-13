@@ -9,6 +9,7 @@ get '/results' do
   params[:page] ||= 1
 
   {
-    :total => params[:page].to_i
+    :total   => params[:page].to_i,
+    :results => [{ :name => "Bob Jones" }]
   }.to_json
 end

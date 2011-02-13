@@ -1,4 +1,8 @@
 SearchApp = ->
+
+  templateFor = (name) ->
+    _.template($("#template-" + name).html())
+
   SearchModel = Backbone.Model.extend(
     defaults:
       page: 1
@@ -9,7 +13,7 @@ SearchApp = ->
       "/results?page=" + this.get('page')
   )
 
-  SearchAreaTemplate = _.template($("#template-search-area").html())
+  SearchAreaTemplate = templateFor('search-area')
 
   SearchAreaView = Backbone.View.extend(
     el: $('#search')

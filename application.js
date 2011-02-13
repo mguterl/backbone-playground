@@ -1,7 +1,10 @@
 (function() {
   var SearchApp;
   SearchApp = function() {
-    var SearchAreaTemplate, SearchAreaView, SearchCollection, SearchController, SearchModel;
+    var SearchAreaTemplate, SearchAreaView, SearchCollection, SearchController, SearchModel, templateFor;
+    templateFor = function(name) {
+      return _.template($("#template-" + name).html());
+    };
     SearchModel = Backbone.Model.extend({
       defaults: {
         page: 1,
@@ -12,7 +15,7 @@
         return "/results?page=" + this.get('page');
       }
     });
-    SearchAreaTemplate = _.template($("#template-search-area").html());
+    SearchAreaTemplate = templateFor('search-area');
     SearchAreaView = Backbone.View.extend({
       el: $('#search'),
       initialize: function() {

@@ -8,12 +8,7 @@ SearchApp = ->
       "/results?page=" + this.get('page')
   )
 
-  SearchAreaTemplate = _.template(
-    "<h1>Total Results Found: <%= total %></h1>" +
-      "<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " +
-      "<span class='page'>Page: <%= page %></span> " +
-      "<a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>"
-  )
+  SearchAreaTemplate = _.template($("#search-area-template").html())
 
   SearchAreaView = Backbone.View.extend(
     el: $('#search')

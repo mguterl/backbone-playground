@@ -1,8 +1,16 @@
 SearchApp = ->
-  SearchModel = Backbone.Model.extend()
+  SearchModel = Backbone.Model.extend(
+    defaults:
+      page: 1
+      total: null
+
+    url: ->
+      "/results?page=" + this.get('page')
+  )
 
   SearchAreaTemplate = _.template(
-    "<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " +
+    "<h1>Total Results Found: <%= total %></h1>" +
+      "<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " +
       "<span class='page'>Page: <%= page %></span> " +
       "<a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>"
   )
@@ -12,7 +20,7 @@ SearchApp = ->
 
     initialize: ->
       this.render = _.bind(this.render, this)
-      this.model.bind('change:page', this.render)
+      this.model.bind('change', this.render)
       this.layout = SearchAreaTemplate
       this
 
@@ -40,10 +48,7 @@ SearchApp = ->
       "!/page/:pageNumber" : "page"
 
     initialize: (options) ->
-      this.instance = new SearchModel(
-        id: 1,
-        page: 1
-      )
+      this.instance = new SearchModel()
 
       this.SearchArea = new SearchAreaView(
         model: this.instance
@@ -57,6 +62,7 @@ SearchApp = ->
 
     page: (pageNumber) ->
       this.instance.set(page: pageNumber)
+      this.instance.fetch()
       this
   )
 

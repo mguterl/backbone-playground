@@ -2,13 +2,21 @@
   var SearchApp;
   SearchApp = function() {
     var SearchAreaTemplate, SearchAreaView, SearchCollection, SearchController, SearchModel;
-    SearchModel = Backbone.Model.extend();
-    SearchAreaTemplate = _.template("<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " + "<span class='page'>Page: <%= page %></span> " + "<a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>");
+    SearchModel = Backbone.Model.extend({
+      defaults: {
+        page: 1,
+        total: null
+      },
+      url: function() {
+        return "/results?page=" + this.get('page');
+      }
+    });
+    SearchAreaTemplate = _.template("<h1>Total Results Found: <%= total %></h1>" + "<a class='previous' href='#!/page/<%= parseInt(page) - 1 %>'>Previous page</a> " + "<span class='page'>Page: <%= page %></span> " + "<a class='next' href='#!/page/<%= parseInt(page) + 1 %>'>Next page</a>");
     SearchAreaView = Backbone.View.extend({
       el: $('#search'),
       initialize: function() {
         this.render = _.bind(this.render, this);
-        this.model.bind('change:page', this.render);
+        this.model.bind('change', this.render);
         this.layout = SearchAreaTemplate;
         return this;
       },
@@ -33,10 +41,7 @@
         "!/page/:pageNumber": "page"
       },
       initialize: function(options) {
-        this.instance = new SearchModel({
-          id: 1,
-          page: 1
-        });
+        this.instance = new SearchModel();
         this.SearchArea = new SearchAreaView({
           model: this.instance
         });
@@ -50,6 +55,7 @@
         this.instance.set({
           page: pageNumber
         });
+        this.instance.fetch();
         return this;
       }
     });
